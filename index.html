@@ -1,40 +1,194 @@
 <!DOCTYPE html>
-
-<html lang="en-US"> <!lang元素标明了页面的主要语种>
+<html lang="en">
 	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width" />
-		<title>My Test Page</title>
-		<link rel="icon" href="images/user.ico" type="image/x-icon">
-		<link href="styles/style.css" rel="stylesheet" />
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+<!-- 	meta标签属性：
+		name：指定元数据名称
+		content：指定元数据的内容
+		charset：指定字符编码方式，例如utf-8
+		viewport：指定移动设备的视口大小，以便在移动设备上正确显示页面内容
+		.. -->
+
+<!-- 		常用的content属性：
+		"text/html;charset=utf-8":设置文档编码格式为utf-8
+		"width=device-width,initial-scale=1.0":设置页面宽度等于设备宽度，初始缩放比例为1
+		"noindex":禁止搜索引擎索引页面
+		"maximum-scale=1.0,user-scalable=no":禁止用户缩放页面
+		.. -->
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Web Serial Tool</title>
+		<!-- 用svg增加title图标 -->
+		<link rel="icon" type="image/svg+xml" href="usb.svg">
+
+		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			hideTop = function () {
+				let header = document.querySelector(".bd-header");
+				header.remove();
+				document.docmentElement.style.setProperty('--top-height','10px');
+			}
+		</script>
 	</head>
+
 	<body>
-		<h1>My Test Heading</h1>
-		<!-- <h2>My Test Heading 2</h2> -->
-		<!-- <h3>My Test Heading 3</h3> -->
-		<!-- <h4>My Test Heading 4</h4>	 -->
-		<img src="images/lanhe-logo.ico" alt="My test image" />
+		<header class="bd-header bg-blue py-3 d-flex align-items-stretch border-bottom-0 border-dark">
+			<!-- container-fluid容器保持全屏大小，始终保持100%，当需要一个元素横跨视口的整个宽度，可以使用.container-fluid容器 -->
+			<div class="container-fluid d-flex align-items-center">
+				<h1 class="d-flex align-items-center fs-4 text-white mb-0">
+					LanHe Web Serial Tool
+				</h1>
+				<span class="ms-auto">
+<!-- 					<span class="link-light">
+						代码已开源
+					</span> -->
+					<a href="javascript:hideTop()" class="link-light ml-2">隐藏头部</a>
+				</span>
+			</div>
+		</header>
 
-		<p id="p1">My cat is <strong>very</strong> grump.</p>
+		<div id="main" class="d-flex">
+			<!-- 左侧串口配置 -->
+			<!-- !important:将属性的权重提升到最高，另外继承的属性不可用 -->
+			<div id="serial-options" class="col-auto m-0 bg-light sidebar">
+				<div class="collapse show p-2 float-start">
+					<div class="input-group mb-3">
+						<span class="input-group-text">波特率</span>
+						<input type="number" id="serial-baud" class="form-control" placeholder="选择波特率" value="9600" list="baud-list">
+						<datalist id="baud-list">
+							<option>9600</option>
+							<option>14400</option>
+							<option>19200</option>
+							<option>115200</option>
+						</datalist>
+					</div>
 
-		<p>List Test</p>
-		<p>At Mozilla, we're a global community of technologists, thinkers, and builders working together…</p>
-		<p></p>
-		<p>At Mozilla, we're a global community of</p>
-		<!-- ol有序，ul无序 -->
-		<ol>
-			<li>technologists</li>
-			<li>thinkers</li>
-			<li>builders</li>
-		</ol>
-		<p>working together…</p>
+					<div class="input-group mb-3">
+						<span class="input-group-text">数据位</span>
+						<select class="form-select" id="serial-data-bits">
+							<option>8</option>
+							<option>7</option>
+						</select>
+					</div>
 
-		<p>---------------------------------------</p>
-		<p>链接Test</p>
-		<a href="https://www.mozilla.org/zh-CN/about/manifesto/">Mozilla Manifesto</a>
+					<div class="input-group mb-3">
+						<span class="input-group-text">停止位</span>
+						<select class="form-select" id="serial-stop-bits">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
 
-		<button>切换用户</button>
-		<script src="scripts/main.js" defer></script>
+					<div class="input-group mb-3">
+						<span class="input-group-text">检验位</span>
+						<select class="form-select" id="serial-parity">
+							<option value="none">None</option>
+							<option value="even">Even</option>
+							<option value="odd">Odd</option>
+						</select>
+					</div>
+
+					<div class="input-group mb-3">
+						<span class="input-group-text">缓冲区</span>
+						<input type="number" id="serial-buff-size" class="form-control" placeholder="缓冲区大小" list="buff-size-list" max="1677216" value="1024">
+						<datalist id="buff-size-list">
+							<option>255</option>
+							<option>512</option>
+							<option>1024</option>
+						</datalist>
+					</div>
+
+					<div class="input-group mb-3">
+						<span class="input-group-text">流控制</span>
+						<select class="form-select" id="serial-flow-control">
+							<option value="none">None</option>
+							<option value="hardware">HardWare</option>
+						</select>
+					</div>
+
+					<div class="d-flex mt-2">
+						<button class="btn btn-secondary me-3" id="serial-select-port">选择串口</button>
+						<button class="btn btn-primary flex-grow-1" id="serial-open-or-close">打开串口</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="clear"></div>
+			<!-- 中间串口日志 -->
+			<div id="log-main" class="flex-fill px-md-2">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1 flex-shrink-0">
+					<h1 class="h3">LogData</h1>
+					<div class="btn-toolbar">
+						<div class="form-check align-self-center me-2">
+							<input class="form-check-input" type="checkbox" id="serial-hex-read">
+							<label class="form-check-label" for="serial-hex-send">HEX格式显示</label>
+						</div>
+
+						<div class="btn-group">
+							<button class="btn btn-sm btn-outline-secondary" id="serial-clear">清空</button>
+							<button class="btn btn-sm btn-outline-secondary" id="serial-copy">复制</button>
+							<button class="btn btn-sm btn-outline-secondary" id="serial-save">保存</button>
+						</div>
+					</div>
+				</div>
+
+				<div id="serial-logs" class="flex-grow-1 border border-2 rounded mb-2"></div>
+
+				<div class="flex-shrink-0 mb-2">
+					<textarea class="form-control" rows="3" id="serial-send-content" style="resize:none;" placeholder="send data"></textarea>
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-1 flex-shrink-0">
+						<div class="btn-toolbar">
+							<div class="form-check align-self-center me-2">
+								<input class="form-check-input" type="checkbox" id="serial-send-display">
+								<label class="form-check-label" for="serial-send-display">显示发送</label>
+							</div>
+							<div class="form-check align-self-center me-2">
+								<input class="form-check-input" type="checkbox" id="serial-add-crlf">
+								<label class="form-check-label" for="serial-add-crlf">末尾加回车换行</label>
+							</div>
+							<div class="form-check align-self-center me-2">
+								<input class="form-check-input" type="checkbox" id="serial-hex-send">
+								<label class="form-check-label" for="serial-hex-send">HEX发送</label>
+							</div>
+							<div class="form-check align-self-center me-2">
+								<input class="form-check-input" type="checkbox" id="serial-loop-send">
+								<label class="form-check-label" for="serial-loop-send">循环发送</label>
+							</div>
+							<div class="input-group input-group-sm">
+								<span class="input-group-text">发送间隔(Ms)</span>
+								<input type="number" id="serial-loop-send-time" class="form-control" placeholder="" min="50" value="1000" style="width: 100px;">
+							</div>
+						</div>
+
+						<button id="serial-send" class="btn btn-primary h-10 px-5"><i class="bi bi-send"></i>发送</button>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<!-- //模态框modal实现弹框 -->
+		<!-- //tabindex：-1 元素将会被禁用在正常的tab键顺序中被访问到 -->
+		<div class="modal fade" id="model-tip" aria-hidden="true" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modal-title"></h1>
+						<button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" id="modal-message">
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" data-bs-dismiss="modal">好的</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/common.js"></script>
 	</body>
 </html>
