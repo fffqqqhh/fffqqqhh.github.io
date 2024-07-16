@@ -206,7 +206,7 @@
 		let classname = "text-success";
 		let form = '<-';
 		newmsg = "";
-		serialData.push(...data);
+		// serialData.push(...data);
 		//hex
 		if(isReadHex)
 		{
@@ -281,7 +281,13 @@
 				reader.releaseLock();
 				break;
 			}
-			dataReceived(value);
+			serialData.push(...value);
+
+			clearTimeout(serialTimer);
+			serialTimer = setTimeout(()=>{
+				dataReceived(value);
+				serialData = [];
+				},50);
 		}
 	}
 
