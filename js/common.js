@@ -283,11 +283,12 @@
 			}
 			serialData.push(...value);
 
-			clearTimeout(serialTimer);
-			serialTimer = setTimeout(()=>{
-				dataReceived(serialData);
-				serialData = [];
-				},10);
+			// clearTimeout(serialTimer);
+			// serialTimer = setTimeout(()=>{
+			// 	dataReceived(serialData);
+			// 	serialData = [];
+			// 	},10);
+			setTimeout(dataReceived(serialData),50);
 		}
 	}
 
