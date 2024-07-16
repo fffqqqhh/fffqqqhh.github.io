@@ -26,13 +26,13 @@
 		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 
-		<script>
+<!-- 		<script>
 			hideTop = function () {
 				let header = document.querySelector(".bd-header");
 				header.remove();
 				document.docmentElement.style.setProperty('--top-height','10px');
 			}
-		</script>
+		</script> -->
 	</head>
 
 	<body>
@@ -46,7 +46,7 @@
 <!-- 					<span class="link-light">
 						代码已开源
 					</span> -->
-					<a href="javascript:hideTop()" class="link-light ml-2">隐藏头部</a>
+					<!-- <a href="javascript:hideTop()" class="link-light ml-2">隐藏头部</a> -->
 				</span>
 			</div>
 		</header>
@@ -125,13 +125,22 @@
 					<div class="btn-toolbar">
 						<div class="form-check align-self-center me-2">
 							<input class="form-check-input" type="checkbox" id="serial-hex-read">
-							<label class="form-check-label" for="serial-hex-send">HEX格式显示</label>
+							<label class="form-check-label" for="serial-hex-read">HEX格式显示</label>
 						</div>
 
 						<div class="btn-group">
-							<button class="btn btn-sm btn-outline-secondary" id="serial-clear">清空</button>
-							<button class="btn btn-sm btn-outline-secondary" id="serial-copy">复制</button>
-							<button class="btn btn-sm btn-outline-secondary" id="serial-save">保存</button>
+							<!-- <button class="btn btn-sm btn-outline-secondary" id="serial-clear">清空</button> -->
+							<span role="button" aria-label="clear" tabindex="-1" style="display: inline-flex;">
+								<img id="serial-clear" src="clear.svg" title="clear" alt="clear" width="25px" height="25px">
+							</span>
+							<!-- <button class="btn btn-sm btn-outline-secondary" id="serial-copy">复制</button> -->
+							<span role="button" aria-label="copy" tabindex="-1" style="display: inline-flex;">
+								<img id="serial-copy" src="copy.svg" title="copy" alt="copy" width="25px" height="25px">
+							</span>
+							<!-- <button class="btn btn-sm btn-outline-secondary" id="serial-save">保存</button> -->
+							<span role="button" aria-label="save" tabindex="-1" style="display: inline-flex;">
+								<img id="serial-save" src="save.svg" title="save" alt="save" width="25px" height="25px">
+							</span>
 						</div>
 					</div>
 				</div>
