@@ -520,6 +520,10 @@
 		{
 			saveText(text);
 		}
+		else
+		{
+			showMsg("内容不能为空！");
+		}
 	})
 
 	document.getElementById('serial-send-display').addEventListener('change',function(e){
@@ -559,6 +563,17 @@
 		else
 		{
 			clearInterval(serialLoopSendTimer);
+		}
+	})
+
+	document.addEventListener('keydown',(e)=>{
+		if(e.ctrlKey)
+		{
+			e.preventDefault();
+		}
+		if(e.keyCode === 123)
+		{
+			e.preventDefault();
 		}
 	})
 
