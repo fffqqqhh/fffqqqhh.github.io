@@ -285,8 +285,8 @@
 
 			clearTimeout(serialTimer);
 			serialTimer = setTimeout(()=>{
-				dataReceived(value);
-				// serialData = [];
+				dataReceived(serialData);
+				serialData = [];
 				},50);
 		}
 	}
