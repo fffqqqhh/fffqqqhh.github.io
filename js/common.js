@@ -285,15 +285,12 @@
 			{
 				serialData.push(...value);
 			}
-
-			// clearTimeout(serialTimer);
-			// serialTimer = setTimeout(()=>{
-			// 	dataReceived(serialData);
-			// 	serialData = [];
-			// 	},10);
-			clearTimeout(serialTimer);
-			serialTimer = setTimeout(dataReceived(serialData),100);
-			serialData = [];
+			else
+			{
+				clearTimeout(serialTimer);
+				serialTimer = setTimeout(dataReceived(serialData),100);
+				serialData = [];
+			}
 		}
 	}
 
