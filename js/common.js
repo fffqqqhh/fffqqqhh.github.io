@@ -281,7 +281,10 @@
 				reader.releaseLock();
 				break;
 			}
-			serialData.push(...value);
+			if(value)
+			{
+				serialData.push(...value);
+			}
 
 			// clearTimeout(serialTimer);
 			// serialTimer = setTimeout(()=>{
