@@ -265,6 +265,12 @@
 		}
 	})
 
+	async function regularRead()
+	{
+		dataReceived(serialData);
+		serialData = [];
+	}
+
 	//读取串口数据
 	async function readData()
 	{
@@ -290,15 +296,10 @@
 			}
 			
 			// serialTimer = setTimeout(dataReceived(serialData),100);
-			serialTimer = setInterval("regularRead",100);
+			serialTimer = setInterval(regularRead,100);
 		}
 	}
-
-	function regularRead()
-	{
-		dataReceived(serialData);
-		serialData = [];
-	}
+	
 
 	async function writeData(data)
 	{
