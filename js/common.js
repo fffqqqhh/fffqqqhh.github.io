@@ -161,6 +161,7 @@
 				await writableStreamClosed;
 				writeflag = false;
 			}
+			clearInterval(serialTimer);
 
 			await serialPort.close();
 		}
@@ -284,12 +285,19 @@
 			if(value)
 			{
 				serialData.push(...value);
-				clearTimeout(serialTimer);
+				// clearTimeout(serialTimer);
+				clearInterval(serialTimer);
 			}
 			
-			serialTimer = setTimeout(dataReceived(serialData),100);
-			serialData = [];
+			// serialTimer = setTimeout(dataReceived(serialData),100);
+			serialTimer = setInterval("regularRead",100);
 		}
+	}
+
+	function regularRead()
+	{
+		dataReceived(serialData);
+		serialData = [];
 	}
 
 	async function writeData(data)
