@@ -583,15 +583,15 @@
 		}
 	})
 
-	// document.addEventListener('keydown',function(e){
-	// 	if(e.ctrlKey)
-	// 	{
-	// 		e.preventDefault();
-	// 	}
-	// 	if(e.keyCode === 123)
-	// 	{
-	// 		e.preventDefault();
-	// 	}
-	// })
+	document.addEventListener('keydown',function(e){
+		if(e.ctrlKey)
+		{
+			e.preventDefault();
+		}
+		if(e.keyCode === 123)
+		{
+			e.preventDefault();
+		}
+	})
 
 })()
