@@ -269,6 +269,7 @@
 	{
 		dataReceived(serialData);
 		serialData = [];
+		clearInterval(serialTimer);
 	}
 
 	//读取串口数据
