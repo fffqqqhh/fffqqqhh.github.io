@@ -284,13 +284,11 @@
 			if(value)
 			{
 				serialData.push(...value);
-			}
-			else
-			{
 				clearTimeout(serialTimer);
-				serialTimer = setTimeout(dataReceived(serialData),100);
-				serialData = [];
 			}
+			
+			serialTimer = setTimeout(dataReceived(serialData),100);
+			serialData = [];
 		}
 	}
 
