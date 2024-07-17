@@ -288,7 +288,8 @@
 			// 	dataReceived(serialData);
 			// 	serialData = [];
 			// 	},10);
-			setTimeout(dataReceived(serialData),100);
+			clearTimeout(serialTimer);
+			serialTimer = setTimeout(dataReceived(serialData),100);
 			serialData = [];
 		}
 	}
